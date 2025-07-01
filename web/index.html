@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Поиск заказа</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2em;
+    }
+    input {
+      padding: 0.5em;
+      width: 300px;
+    }
+    button {
+      padding: 0.5em 1em;
+      margin-left: 1em;
+    }
+    pre {
+      background: #f0f0f0;
+      padding: 1em;
+      margin-top: 1em;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Введите Order ID:</h2>
+  <input id="order_id" />
+  <button onclick="search()">Поиск</button>
+  <pre id="result"></pre>
+
+  <script>
+    function search() {
+      const id = document.getElementById('order_id').value.trim();
+      if (!id) {
+        alert("Введите Order ID");
+        return;
+      }
+      fetch("/order/?id=" + id)
+        .then(r => {
+          if (!r.ok) throw new Error("Not found");
+          return r.json();
+        })
+        .then(data => {
+          document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(() => alert("Не найдено"));
+    }
+  </script>
+</body>
+</html>

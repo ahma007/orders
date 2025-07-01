@@ -1,0 +1,16 @@
+{
+  "server_port": "8081",
+  "db": {
+    "host": "localhost",
+    "port": "5432",
+    "user": "go_user",
+    "password": "go_pass",
+    "name": "orders_db",
+    "sslmode": "disable"
+  },
+  "kafka": {
+    "brokers": ["localhost:9092"],
+    "topic": "orders",
+    "group_id": "order-group"
+  }
+}
