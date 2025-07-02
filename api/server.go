@@ -11,16 +11,13 @@ import (
 
 func StartServer() error {
 	fs := http.FileServer(http.Dir("web"))
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("Запрос: %s %s", r.Method, r.URL.Path)
-		fs.ServeHTTP(w, r)
-	})
+	http.Handle("/", fs)
 
 	http.HandleFunc("/order", handleGetOrder)
 
-	log.Println("🌐 HTTP-сервер запущен на :" + config.AppConfig.ServerPort)
-	return http.ListenAndServe(":"+config.AppConfig.ServerPort, nil)
+	addr := "0.0.0.0:" + config.AppConfig.ServerPort
+	log.Println("🌐 HTTP-сервер запущен на", addr)
+	return http.ListenAndServe(addr, nil)
 }
 
 func handleGetOrder(w http.ResponseWriter, r *http.Request) {

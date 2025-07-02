@@ -9,7 +9,7 @@
     "sslmode": "disable"
   },
   "kafka": {
-    "brokers": ["localhost:9092"],
+    "brokers": ["9092:9092"],
     "topic": "orders",
     "group_id": "order-group"
   }
